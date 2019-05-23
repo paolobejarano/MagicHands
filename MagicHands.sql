@@ -14,7 +14,7 @@ CREATE TABLE Solicitud (
 CREATE TABLE Servicio (
   ID_servicio int NOT NULL,
   fecha_del_servicio date NOT NULL,
-  CONSTRAINT fecha_de_servicio_valida CHECK (fecha_del_servicio > GETDATE())
+  CONSTRAINT fecha_de_servicio_valida CHECK (fecha_del_servicio > GETDATE()),
   hora_de_inicio time NOT NULL,
   numero_de_horas int NOT NULL,
   requerimientos_especificos char,
@@ -175,11 +175,11 @@ INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_clie
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(5, 'Av. San Felipe 1701 Dpto. 503', 'A 2 cuadras del Canal 2', 13, 4);
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(6, 'Av. Jose Pardo 201 Dpto. 303', 'A 2 cuadras del óvalo de Av. Ejercito', 21, 5);
 
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(1, '29506272', 'Maritza', 'Soria', 'Julissa Soria (Hermana) 932 837 433', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(2, '20526343', 'Alejandra', 'Valera', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(3, '01987266', 'Emma', 'Rodriguez', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(4, '01229867', 'Nelly', 'Arellano', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(5, '29304353', 'Maria Paola', 'Delgado', '', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(1, '29506272', 'Maritza', 'Soria', 'Julissa Soria (Hermana) 932 837 433', 1);
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(2, '20526343', 'Alejandra', 'Valera', '', 1);
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(3, '01987266', 'Emma', 'Rodriguez', '', 1);
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(4, '01229867', 'Nelly', 'Arellano', '', 1);
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(5, '29304353', 'Maria Paola', 'Delgado', '', 1);
 
 /* Consultas */
 SELECT COUNT(*) FROM clientes; -- Muestra el número de clientes registrados
