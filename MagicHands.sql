@@ -8,25 +8,29 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Solicitud (
   ID_solicitud int NOT NULL,
-  fecha_y_hora_de_solicitud datetime NOT NULL,
+  fecha_y_hora_de_solicitud datetime NOT NULL DEFAULT GETDATE(),
   ID_cliente int NOT NULL);
 
 CREATE TABLE Servicio (
   ID_servicio int NOT NULL,
   fecha_del_servicio date NOT NULL,
+  CONSTRAINT fecha_de_servicio_valida CHECK (fecha_del_servicio > GETDATE())
   hora_de_inicio time NOT NULL,
   numero_de_horas int NOT NULL,
   requerimientos_especificos char,
   precio_servicio float NOT NULL,
   comision_empresa float NOT NULL,
   pago_a_trabajador float NOT NULL,
+  precio_productos float NOT NULL,
   ID_solicitud int NOT NULL,
   ID_direccion int NOT NULL,
   ID_trabajador int NOT NULL);
 
 CREATE TABLE Calificacion_de_servicio(
   ID_calificacion int NOT NULL,
-  nivel_de_caificacion int NOT NULL,
+  nivel_de_calificacion tinyint NOT NULL,
+  CONSTRAINT rango_de_calificacion CHECK (nivel_de_calificacion <= 5),-- El nivel de calificación es un numero entero entre 1 y 5
+  comentario varchar(250), -- El comentario es opcional
   ID_servicio int NOT NULL);
 
 CREATE TABLE Trabajador (
@@ -36,7 +40,7 @@ CREATE TABLE Trabajador (
   apellidos varchar(100) NOT NULL,
   contacto_de_emergencia varchar(250) NOT NULL,
   direccion varchar(250),
-  disponible bit NOT NULL,
+  disponible bit NOT NULL DEFAULT 1, -- Bit se usa como boolean, si el trabajador esta disponible tiene valor de 1; caso contrario, valor 0.
   ID_distrito int NOT NULL); -- Se refiere al distrito en el que vive el trabajador
 
 CREATE TABLE Proveedor (
@@ -68,6 +72,7 @@ CREATE TABLE Producto (
 CREATE TABLE Producto_por_servicio (
   ID_producto_por_servicio int NOT NULL,
   cantidad int NOT NULL,
+  precio float NOT NULL,
   ID_producto int NOT NULL,
   ID_servicio int NOT NULL);
 
@@ -166,19 +171,17 @@ INSERT INTO Cliente (ID_cliente, nombre_completo, email, celular) VALUES(5, 'Mis
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(1, 'Av. Las Leyendas 264 Dpto. 701', 'Al frente de Metro de La Marina', 36, 1);
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(2, 'Av. Victor Andres Belaunde 147, Via Real 133, Edificio Real Dos', 'Edifico de colores', 31, 1);
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(3, 'Av. Pezet 1310 Dpto. 301', 'Al frente del Golf Club', 31, 2);
-INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(4, '', '', , );
-INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(5, '', '', , );
-INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(6, '', '', , );
-INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(7, '', '', , );
+INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(4, 'Av. Benavides 2210 Oficina 201', 'A 3 cuadras de Paseo de la República', 21, 3);
+INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(5, 'Av. San Felipe 1701 Dpto. 503', 'A 2 cuadras del Canal 2', 13, 4);
+INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(6, 'Av. Jose Pardo 201 Dpto. 303', 'A 2 cuadras del óvalo de Av. Ejercito', 21, 5);
 
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, disponible) VALUES(1, '29506272', '', '', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, disponible) VALUES(2, '20526343', '', '', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, disponible) VALUES(3, '01987266', '', '', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, disponible) VALUES(4, '01229867', '', '', '', 1)
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, disponible) VALUES(5, '', '', '', '', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(1, '29506272', 'Maritza', 'Soria', 'Julissa Soria (Hermana) 932 837 433', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(2, '20526343', 'Alejandra', 'Valera', '', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(3, '01987266', 'Emma', 'Rodriguez', '', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(4, '01229867', 'Nelly', 'Arellano', '', 1)
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(5, '29304353', 'Maria Paola', 'Delgado', '', 1)
 
 /* Consultas */
 SELECT COUNT(*) FROM clientes; -- Muestra el número de clientes registrados
 SELECT COUNT(*) FROM distritos WHERE disponible = 1; -- Muestra el número de distritos en los que sí se presta servicio
 SELECT COUNT(DISTINCT region) FROM distritos; -- Muestra en cuantas regiones están disponibles los servicios
-
