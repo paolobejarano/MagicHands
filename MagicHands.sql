@@ -99,7 +99,6 @@ ALTER TABLE Servicio ADD CONSTRAINT FK_Servicio_Solicitud FOREIGN KEY(ID_solicit
 ALTER TABLE Servicio ADD CONSTRAINT FK_Servicio_Direccion FOREIGN KEY(ID_direccion) REFERENCES Direccion (ID_direccion);
 ALTER TABLE Servicio ADD CONSTRAINT FK_Servicio_Trabajador FOREIGN KEY(ID_trabajador) REFERENCES Trabajador (ID_trabajador);
 ALTER TABLE Calificacion_de_servicio ADD CONSTRAINT FK_Calificacion_Servicio FOREIGN KEY(ID_servicio) REFERENCES Servicio (ID_servicio);
-ALTER TABLE Trabajador ADD CONSTRAINT FK_Trabajador_Distrito FOREIGN KEY(ID_distrito) REFERENCES Distrito (ID_distrito);
 ALTER TABLE Direccion ADD CONSTRAINT FK_Direccion_Distrito FOREIGN KEY(ID_distrito) REFERENCES Distrito (ID_distrito);
 ALTER TABLE Direccion ADD CONSTRAINT FK_Direccion_Cliente FOREIGN KEY(ID_cliente) REFERENCES Cliente (ID_cliente);
 ALTER TABLE Producto_por_servicio ADD CONSTRAINT FK_Producto_por_servicio_Producto FOREIGN KEY(ID_producto) REFERENCES Producto (ID_producto);
@@ -230,9 +229,10 @@ SELECT * FROM Distrito;
 SELECT * FROM Cliente;
 SELECT * FROM Proveedor;
 SELECT * FROM Producto;
-SELECT * FROM Trabajador;
+SELECT (ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) FROM Trabajador;
 SELECT * FROM Direccion;
 SELECT * FROM Proveedor_por_producto;
 SELECT COUNT(*) FROM Cliente; -- Muestra el número de clientes registrados
 SELECT COUNT(*) FROM Distrito WHERE disponible = 1; -- Muestra el número de distritos en los que sí se presta servicio
 SELECT COUNT(DISTINCT region) FROM Distrito; -- Muestra en cuantas regiones únicas están disponibles los servicios
+
