@@ -40,8 +40,7 @@ CREATE TABLE Trabajador (
   apellidos varchar(100) NOT NULL,
   contacto_de_emergencia varchar(250) NOT NULL,
   direccion varchar(250),
-  disponible bit NOT NULL DEFAULT 1, -- Bit se usa como boolean, si el trabajador esta disponible tiene valor de 1; caso contrario, valor 0.
-  ID_distrito int NOT NULL); -- Se refiere al distrito en el que vive el trabajador
+  disponible bit NOT NULL DEFAULT 1); -- Bit se usa como boolean, si el trabajador esta disponible tiene valor de 1; caso contrario, valor 0.
 
 CREATE TABLE Proveedor (
   ID_proveedor int NOT NULL,
@@ -66,8 +65,8 @@ CREATE TABLE Direccion (
 
 CREATE TABLE Producto (
   ID_producto int NOT NULL,
-  nombre varchar(100),
-  stock_disponible int);
+  nombre varchar(100) NOT NULL,
+  stock_disponible int NOT NULL);
 
 CREATE TABLE Producto_por_servicio (
   ID_producto_por_servicio int NOT NULL,
@@ -175,13 +174,65 @@ INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_clie
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(5, 'Av. San Felipe 1701 Dpto. 503', 'A 2 cuadras del Canal 2', 13, 4);
 INSERT INTO Direccion(ID_direccion, direccion, referencias, id_distrito, id_cliente) VALUES(6, 'Av. Jose Pardo 201 Dpto. 303', 'A 2 cuadras del óvalo de Av. Ejercito', 21, 5);
 
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(1, '29506272', 'Maritza', 'Soria', 'Julissa Soria (Hermana) 932 837 433', 1);
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(2, '20526343', 'Alejandra', 'Valera', '', 1);
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(3, '01987266', 'Emma', 'Rodriguez', '', 1);
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(4, '01229867', 'Nelly', 'Arellano', '', 1);
-INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia, ID_distrito) VALUES(5, '29304353', 'Maria Paola', 'Delgado', '', 1);
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) VALUES(1, '29506272', 'Maritza', 'Soria', 'Julissa Soria (Hermana) 932 837 433');
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) VALUES(2, '20526343', 'Alejandra', 'Valera', 'Pia ');
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) VALUES(3, '01987266', 'Emma', 'Rodriguez', '');
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) VALUES(4, '01229867', 'Nelly', 'Arellano', '');
+INSERT INTO Trabajador(ID_trabajador, dni, nombres, apellidos, contacto_de_emergencia) VALUES(5, '29304353', 'Maria Paola', 'Delgado', '');
+
+INSERT INTO Proveedor(ID_proveedor, RUC, razon_social, email, celular) VALUES(1, '11726354546', 'Distribuidora de productos de limpieza del Peru S.A.C.', 'ventas@productosdelimpieza.pe', '987262534');
+INSERT INTO Proveedor(ID_proveedor, RUC, razon_social, email, celular) VALUES(2, '11265353461', 'Distribuidora de químicos en lima E.I.R.L.', 'ventas@quimicoslima.pe', '997625353');
+
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (1, 'Escoba', 5);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (2, 'Aspiradora', 10);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (3, 'Lejía', 15);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (4, 'Detergente', 14);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (5, 'Esponja', 20);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (6, 'Escobilla', 22);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (7, 'Quitasarro', 10);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (8, 'Trapo', 25);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (9, 'Papel toalla', 20);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (10, 'Bolsas de Basura', 30);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (11, 'Trapeador', 5);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (12, 'Guantes (2 pares)', 30);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (13, 'Limpia vidiros', 15);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (14, 'Cera', 10);
+INSERT INTO Producto(ID_producto, nombre, stock_disponible) VALUES (15, 'Ácido Muriático', 15);
+
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(1, 1, 1);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(2, 1, 2);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(3, 1, 3);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(4, 1, 4);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(5, 1, 5);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(6, 1, 6);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(7, 1, 7);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(8, 1, 8);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(9, 1, 9);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(10, 1, 10);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(11, 1, 11);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(12, 1, 12);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(13, 1, 13);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(14, 1, 14);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(15, 1, 15);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(16, 2, 1);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(17, 2, 3);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(18, 2, 5);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(19, 2, 7);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(20, 2, 8);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(21, 2, 9);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(22, 2, 10);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(23, 2, 13);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(24, 2, 14);
+INSERT INTO Proveedor_por_producto(ID_proveedor_por_producto, ID_proveedor, ID_producto) VALUES(24, 2, 15);
 
 /* Consultas */
-SELECT COUNT(*) FROM clientes; -- Muestra el número de clientes registrados
-SELECT COUNT(*) FROM distritos WHERE disponible = 1; -- Muestra el número de distritos en los que sí se presta servicio
-SELECT COUNT(DISTINCT region) FROM distritos; -- Muestra en cuantas regiones están disponibles los servicios
+SELECT * FROM Distrito;
+SELECT * FROM Cliente;
+SELECT * FROM Proveedor;
+SELECT * FROM Producto;
+SELECT * FROM Trabajador;
+SELECT * FROM Direccion;
+SELECT * FROM Proveedor_por_producto;
+SELECT COUNT(*) FROM Cliente; -- Muestra el número de clientes registrados
+SELECT COUNT(*) FROM Distrito WHERE disponible = 1; -- Muestra el número de distritos en los que sí se presta servicio
+SELECT COUNT(DISTINCT region) FROM Distrito; -- Muestra en cuantas regiones únicas están disponibles los servicios
